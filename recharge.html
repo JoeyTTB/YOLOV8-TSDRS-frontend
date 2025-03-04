@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 会员充值</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="logo">
+                <h1>交通标志识别系统</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="user.html">
+                    <i class="icon">&#128200;</i>
+                    <span>识别分析</span>
+                </a>
+                <a href="history.html">
+                    <i class="icon">&#128194;</i>
+                    <span>历史记录</span>
+                </a>
+                <a href="recharge.html" class="active">
+                    <i class="icon">&#128176;</i>
+                    <span>会员充值</span>
+                </a>
+                <a href="points.html">
+                    <i class="icon">&#127941;</i>
+                    <span>积分兑换</span>
+                </a>
+                <a href="feedback.html">
+                    <i class="icon">&#128172;</i>
+                    <span>意见反馈</span>
+                </a>
+                <a href="profile.html">
+                    <i class="icon">&#128100;</i>
+                    <span>个人信息</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <img src="./upload/user.webp" alt="avatar" class="avatar" id="page-avatar">
+                <span id="username">用户名</span>
+                <button id="logoutBtn">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>会员充值</h2>
+                <div class="user-actions">
+                    <span id="currentTime"></span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- 会员充值面板 -->
+                <div class="recharge-panel">
+                    <div class="recharge-options">
+                        <div class="recharge-item" data-amount="100">
+                            <h3>初级会员</h3>
+                            <p class="price">￥100</p>
+                            <p class="benefit">每月200次识别额度</p>
+                        </div>
+                        <div class="recharge-item" data-amount="200">
+                            <h3>中级会员</h3>
+                            <p class="price">￥200</p>
+                            <p class="benefit">每月500次识别额度</p>
+                        </div>
+                        <div class="recharge-item" data-amount="300">
+                            <h3>高级会员</h3>
+                            <p class="price">￥300</p>
+                            <p class="benefit">每月1000次识别额度</p>
+                        </div>
+                        <div class="recharge-item" data-amount="400">
+                            <h3>至尊会员</h3>
+                            <p class="price">￥400</p>
+                            <p class="benefit">无限次识别额度</p>
+                        </div>
+                    </div>
+                    <div class="payment-section">
+                        <button class="pay-btn" id="payButton">立即支付</button>
+                    </div>
+
+                    <!-- 订单记录部分 -->
+                    <div class="order-history">
+                        <h3>充值记录</h3>
+                        <!-- 添加查询表单 -->
+                        <div class="search-form">
+                            <div class="form-group">
+                                <label>开始时间：</label>
+                                <input type="datetime-local" id="startTime">
+                            </div>
+                            <div class="form-group">
+                                <label>结束时间：</label>
+                                <input type="datetime-local" id="endTime">
+                            </div>
+                            <button id="searchBtn" class="search-btn">查询</button>
+                            <button id="resetBtn" class="reset-btn">重置</button>
+                        </div>
+                        <div class="order-table-container">
+                            <table class="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>订单时间</th>
+                                        <th>会员类型</th>
+                                        <th>支付金额</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orderTableBody">
+                                    <!-- 订单记录将通过JavaScript动态插入 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 修改会员类型的弹窗 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>修改会员类型</h2>
+            <div class="edit-form">
+                <div class="form-group">
+                    <label>会员类型：</label>
+                    <select id="membershipType">
+                        <option value="100">初级会员 (￥100)</option>
+                        <option value="200">中级会员 (￥200)</option>
+                        <option value="300">高级会员 (￥300)</option>
+                        <option value="400">至尊会员 (￥400)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>金额：</label>
+                    <input type="text" id="amount" readonly>
+                </div>
+                <button id="saveChanges">保存修改</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .edit-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 200px;
+            padding: 5px;
+        }
+
+        #saveChanges {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        #saveChanges:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="js/recharge.js"></script>
+</body>
+</html> 

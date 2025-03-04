@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 个人信息</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="logo">
+                <h1>交通标志识别系统</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="user.html">
+                    <i class="icon">&#128200;</i>
+                    <span>识别分析</span>
+                </a>
+                <a href="history.html">
+                    <i class="icon">&#128194;</i>
+                    <span>历史记录</span>
+                </a>
+                <a href="recharge.html">
+                    <i class="icon">&#128176;</i>
+                    <span>会员充值</span>
+                </a>
+                <a href="points.html">
+                    <i class="icon">&#127941;</i>
+                    <span>积分兑换</span>
+                </a>
+                <a href="feedback.html">
+                    <i class="icon">&#128172;</i>
+                    <span>意见反馈</span>
+                </a>
+                <a href="profile.html" class="active">
+                    <i class="icon">&#128100;</i>
+                    <span>个人信息</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>个人信息</h2>
+                <div class="user-actions">
+                    <span id="currentTime"></span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- 个人信息卡片 -->
+                <div id="profileContent" class="profile-card">
+                    <div class="profile-header">
+                        <img src="./upload/user.webp" alt="用户头像" class="profile-avatar" id="profile-avatar">
+                        <h3 id="profileUsername">用户名</h3>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <label>账号</label>
+                            <span id="accountId">test</span>
+                        </div>
+                        <div class="info-item">
+                            <label>注册时间</label>
+                            <span id="registerTime"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>上次登录</label>
+                            <span id="lastLogin"></span>
+                        </div>
+                        <div class="info-item">
+                            <label>会员状态</label>
+                            <span id="memberStatus"></span>
+                        </div>
+                    </div>
+                    <div class="upload-section" id="upload-avatar">
+                        <input type="file" id="uploadAvatar" accept="image/*">
+                    </div>
+                    <div class="upload-section">
+                        <button id="uploadBtn" class="upload-btn">上传头像</button>
+                    </div>
+                    <div class="logout-section">
+                        <button id="logoutBtn" class="logout-btn">退出登录</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/user.js"></script>
+    <script>
+        const uploadSection = document.getElementById('upload-avatar');
+        const uploadAvatar = document.getElementById('uploadAvatar');
+        const uploadAvatarBtn = document.getElementById('uploadBtn');
+        // 更新时间显示
+        document.addEventListener('DOMContentLoaded', async function() {
+            const username = localStorage.getItem('username');
+            const token = localStorage.getItem('token');
+            const regdate = localStorage.getItem('regdate');
+            const lastLogin = localStorage.getItem('lastLogin');
+            const avatar = localStorage.getItem('avatar');
+            const avatarHTML = document.getElementById('profile-avatar');
+            if(!regdate) {
+                try {
+                    const response = await fetch('http://localhost:8082/account/regdate/' + username, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': token,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const data = await response.json();
+                    console.log("data.code = " + data.code);
+                    if(data.code == 1) {
+                        localStorage.setItem('regdate', data.data);
+                        document.getElementById('registerTime').textContent = localStorage.getItem('regdate');
+                    }
+                } catch (error) {document.getElementById('registerTime').textContent = "无数据"}
+            } else {
+                document.getElementById('registerTime').textContent = regdate;
+            }
+            if(!lastLogin) {
+                localStorage.setItem('lastLogin', new Date().toLocaleString());
+                document.getElementById('lastLogin').textContent = localStorage.getItem('lastLogin');
+            } else {
+                document.getElementById('lastLogin').textContent = lastLogin;
+            }
+            //更新用户状态
+            try {
+                const response = await fetch('http://localhost:8082/membership/info/' + username, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if(data.code == 1) {
+                    document.getElementById('memberStatus').textContent = data.data.latestRecord.remark;
+                }
+            } catch (error) {document.getElementById('memberStatus').textContent = "普通用户"}
+            //更新用户头像
+            if(!avatar) {
+                try {
+                    const response = await fetch('http://localhost:8082/account/avatar/' + username, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': token,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const data = await response.json();
+                    if (data.code != 1) {
+                        throw new Error();
+                    }
+                    localStorage.setItem('avatar', data.data);
+                    avatarHTML.src = data.data;
+                } catch (error) {}
+            } else {
+                avatarHTML.src = avatar;
+            }
+            // 更新用户名显示
+            if (username) {
+                document.getElementById('profileUsername').textContent = username;
+                document.getElementById('accountId').textContent = username;
+            }
+        });
+        uploadSection.addEventListener('click', () => uploadAvatar.click());
+        //上传头像
+        if(uploadBtn) {
+            uploadBtn.addEventListener('click', async function() {
+                const file = uploadAvatar.files[0];
+                if (!file) {
+                    alert("请先点击上方选择文件！");
+                    return;
+                }
+                const formData = new FormData();
+                formData.append('file', file);
+                const username = localStorage.getItem('username');
+                const token = localStorage.getItem('token');
+                try {
+                    const response = await fetch('http://localhost:8082/account/upload/' + username, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': token
+                        },
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (data.code != 1) {
+                        throw new Error(data.msg);
+                    }
+                    localStorage.setItem('avatar', data.data);
+                    const avatarHTML = document.getElementsByClassName('avatar');
+                    avatarHTML.src = data.data;
+                    alert('上传头像成功！');
+                } catch (error) {
+                    alert('上传失败：' + error.message);
+                }
+            });
+    }
+    </script>
+</body>
+</html> 

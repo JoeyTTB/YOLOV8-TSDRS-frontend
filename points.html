@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 积分兑换</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="logo">
+                <h1>交通标志识别系统</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="user.html">
+                    <i class="icon">&#128200;</i>
+                    <span>识别分析</span>
+                </a>
+                <a href="history.html">
+                    <i class="icon">&#128194;</i>
+                    <span>历史记录</span>
+                </a>
+                <a href="recharge.html">
+                    <i class="icon">&#128176;</i>
+                    <span>会员充值</span>
+                </a>
+                <a href="points.html" class="active">
+                    <i class="icon">&#127941;</i>
+                    <span>积分兑换</span>
+                </a>
+                <a href="feedback.html">
+                    <i class="icon">&#128172;</i>
+                    <span>意见反馈</span>
+                </a>
+                <a href="profile.html">
+                    <i class="icon">&#128100;</i>
+                    <span>个人信息</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <img src="./upload/user.webp" alt="avatar" class="avatar" id="page-avatar">
+                <span id="username">用户名</span>
+                <button id="logoutBtn">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>积分兑换</h2>
+                <div class="user-actions">
+                    <span id="currentTime"></span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- 积分信息面板 -->
+                <div class="points-panel">
+                    <div class="points-info">
+                        <div class="info-item">
+                            <h3>识别次数</h3>
+                            <span id="detectCount">0</span>
+                        </div>
+                        <div class="info-item">
+                            <h3>剩余额度</h3>
+                            <span id="remainingQuota">0</span>
+                        </div>
+                    </div>
+
+                    <!-- 兑换规则说明 -->
+                    <div class="exchange-rules">
+                        <h3>兑换规则</h3>
+                        <p>10次识别次数可兑换5次识别额度</p>
+                        <p>30次识别次数可兑换20次识别额度</p>
+                        <p>50次识别次数可兑换40次识别额度</p>
+                    </div>
+
+                    <!-- 兑换选项 -->
+                    <div class="exchange-options">
+                        <div class="exchange-item" data-points="10" data-quota="5">
+                            <h4>基础兑换</h4>
+                            <p>消耗: 10次识别次数</p>
+                            <p>获得: 5次识别额度</p>
+                            <button class="exchange-btn">立即兑换</button>
+                        </div>
+                        <div class="exchange-item" data-points="30" data-quota="20">
+                            <h4>进阶兑换</h4>
+                            <p>消耗: 30次识别次数</p>
+                            <p>获得: 20次识别额度</p>
+                            <button class="exchange-btn">立即兑换</button>
+                        </div>
+                        <div class="exchange-item" data-points="50" data-quota="40">
+                            <h4>高级兑换</h4>
+                            <p>消耗: 50次识别次数</p>
+                            <p>获得: 40次识别额度</p>
+                            <button class="exchange-btn">立即兑换</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/points.js"></script>
+</body>
+</html> 

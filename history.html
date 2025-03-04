@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 历史记录</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="logo">
+                <h1>交通标志识别系统</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="user.html">
+                    <i class="icon">&#128200;</i>
+                    <span>识别分析</span>
+                </a>
+                <a href="history.html" class="active">
+                    <i class="icon">&#128194;</i>
+                    <span>历史记录</span>
+                </a>
+                <a href="recharge.html">
+                    <i class="icon">&#128176;</i>
+                    <span>会员充值</span>
+                </a>
+                <a href="points.html">
+                    <i class="icon">&#127941;</i>
+                    <span>积分兑换</span>
+                </a>
+                <a href="feedback.html">
+                    <i class="icon">&#128172;</i>
+                    <span>意见反馈</span>
+                </a>
+                <a href="profile.html">
+                    <i class="icon">&#128100;</i>
+                    <span>个人信息</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <img src="./upload/user.webp" alt="avatar" class="avatar" id="page-avatar">
+                <span id="username">用户名</span>
+                <button id="logoutBtn">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>历史记录</h2>
+                <div class="user-actions">
+                    <span id="currentTime"></span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- 搜索区域 -->
+                <div class="search-section">
+                    <div class="search-form">
+                        <div class="form-group">
+                            <label>开始时间：</label>
+                            <input type="datetime-local" id="startTime">
+                        </div>
+                        <div class="form-group">
+                            <label>结束时间：</label>
+                            <input type="datetime-local" id="endTime">
+                        </div>
+                        <button id="searchBtn" class="search-btn">查询</button>
+                        <button id="resetBtn" class="reset-btn">重置</button>
+                    </div>
+                </div>
+
+                <!-- 批量操作区域 -->
+                <div class="batch-actions">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="selectAll">
+                        <span class="checkmark"></span>
+                        全选
+                    </label>
+                    <button id="batchDeleteBtn" class="delete-btn" disabled>批量删除</button>
+                </div>
+
+                <!-- 历史记录表格 -->
+                <div id="historyContent" class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th width="5%"><input type="checkbox" id="headerCheckbox"></th>
+                                <th width="20%">时间</th>
+                                <th width="25%">文件名</th>
+                                <th width="25%">文件类型</th>
+                                <th width="20%">状态</th>
+                                <th width="20%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- 历史记录将通过 JavaScript 动态插入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/history.js"></script>
+</body>
+</html> 

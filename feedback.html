@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 意见反馈</title>
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="logo">
+                <h1>交通标志识别系统</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="user.html">
+                    <i class="icon">&#128200;</i>
+                    <span>识别分析</span>
+                </a>
+                <a href="history.html">
+                    <i class="icon">&#128194;</i>
+                    <span>历史记录</span>
+                </a>
+                <a href="recharge.html">
+                    <i class="icon">&#128176;</i>
+                    <span>会员充值</span>
+                </a>
+                <a href="points.html">
+                    <i class="icon">&#127941;</i>
+                    <span>积分兑换</span>
+                </a>
+                <a href="feedback.html" class="active">
+                    <i class="icon">&#128172;</i>
+                    <span>意见反馈</span>
+                </a>
+                <a href="profile.html">
+                    <i class="icon">&#128100;</i>
+                    <span>个人信息</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <img src="./upload/user.webp" alt="avatar" class="avatar" id="page-avatar">
+                <span id="username">用户名</span>
+                <button id="logoutBtn">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>意见反馈</h2>
+                <div class="user-actions">
+                    <span id="currentTime"></span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <!-- 意见反馈面板 -->
+                <div class="feedback-panel">
+                    <!-- 添加意见按钮 -->
+                    <div class="add-feedback-section">
+                        <button id="addFeedbackBtn" class="add-btn">添加意见</button>
+                    </div>
+
+                    <!-- 搜索表单 -->
+                    <div class="search-form">
+                        <div class="form-group">
+                            <input type="text" id="searchInput" placeholder="搜索意见内容...">
+                            <button id="searchBtn" class="search-btn">搜索</button>
+                            <button id="resetBtn" class="reset-btn">重置</button>
+                        </div>
+                    </div>
+
+                    <!-- 意见列表 -->
+                    <div class="feedback-table-container">
+                        <table class="feedback-table">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>意见内容</th>
+                                    <th>反馈时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbackTableBody">
+                                <!-- 意见记录将通过JavaScript动态插入 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 添加/编辑意见��弹窗 -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">添加意见</h2>
+            <div class="feedback-form">
+                <div class="form-group">
+                    <label>意见内容：</label>
+                    <textarea id="feedbackContent" rows="4"></textarea>
+                </div>
+                <button id="saveFeedback">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/feedback.js"></script>
+</body>
+</html> 

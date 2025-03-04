@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交通标志识别系统 - 登录</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="logo">
+                <img src="images/logoschool.jpg" alt="交通标志识别系统">
+            </div>
+            <div class="login-box">
+                <h2>用户登录</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <input type="text" id="username" required>
+                        <label for="username">用户名</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" required>
+                        <label for="password">密码</label>
+                    </div>
+                    <div class="captcha-group">
+                        <input type="text" id="captchaInput" required>
+                        <label for="captchaInput">验证码</label>
+                        <canvas id="captchaCanvas" width="100" height="40"></canvas>
+                    </div>
+                    <button type="submit">登录</button>
+                    <p class="register-link">
+                        没有账号？<a href="register.html">立即注册</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>
